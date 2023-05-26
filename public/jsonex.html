@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <title>json ex</title>
+</head>
+<script type="text/javascript">
+    function loadclick(){
+       fetch("../data/products.json")
+       .then(function(response){
+        return response.json();
+       })
+       .then(function(products){
+        for(var product of products){
+            var tr = document.createElement("tr");
+            var tdname = document.createElement("td");
+            var tdprice = document.createElement("td");
+            var tdstock = document.createElement("td");
+            var tdrating = document.createElement("td");
+            var photo = document.createElement("td");
+
+            tdname.innerHTML = product.name;
+            tdprice.innerHTML = product.price;
+            tdstock.innerHTML =product.stock;
+            tdrating.innerHTML = product.rating.rate;
+            photo.innerHTML = `<img src=${product.photo} width="50px" height="50px">`;
+
+            tr.appendChild(tdname);
+            tr.appendChild(tdprice);
+            tr.appendChild(tdstock);
+            tr.appendChild(tdrating);
+            tr.appendChild(photo);
+
+            document.querySelector("tbody").appendChild(tr);
+        }
+       })
+    }
+  
+</script>
+<body class="container-fluid">
+    <h2>product table<button class="btn btn-danger" onclick="loadclick()">load content</button></h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>price</th>
+                <th>stock</th>
+                <th>rating</th>
+                <th>preview</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

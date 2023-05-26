@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <title> NASA API EXAMPLE</title>
+    <script type="text/javascript">
+        function bodyload(){
+            fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY&quot")
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                for(var photo of data.photos){
+                    var tr = document.createElement("tr");
+                    var tdid = document.createElement("td");
+                    var tdname =document.createElement("td");
+                    var tdpreview = document.createElement("td");
+                    var tdrovername = document.createElement("td");
+
+                    tdid.innerHTML = `${photo.id}`;
+                    tdname.innerHTML =`${photo.camera.full_name}`;
+                    tdrovername.innerHTML = `${photo.rover.name}`;
+                    tdpreview.innerHTML = `<a href = ${photo.img_src} target='blank'><img src=${photo.img_src} width='60px'></a>`;
+
+                    tr.appendChild(tdid);
+                    tr.appendChild(tdname);
+                    tr.appendChild(tdrovername);
+                    tr.appendChild(tdpreview);
+                    document.querySelector("tbody").appendChild(tr);
+                }
+            })
+        }
+    </script>
+</head>
+<body class="container-fluid" onload="bodyload()">
+    <div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>photo id</th>
+                    <th>camera name</th>
+                    <th>preview</th>
+                    <th>rover name</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

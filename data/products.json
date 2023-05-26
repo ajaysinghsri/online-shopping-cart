@@ -1,0 +1,25 @@
+[
+    {
+        "name":"samsung",
+        "price":2000,
+        "stock":true,
+        "rating":{"rate":4,"count":5},
+        "photo":"../public/images/india.png"
+    },
+    {
+      
+        "name":"nike",
+        "price":2000,
+        "stock":true,
+        "rating":{"rate":4,"count":5},
+        "photo":"../public/images/uk.png"  
+    },
+    {
+        
+        "name":"speaker",
+        "price":2000,
+        "stock":true,
+        "rating":{"rate":4,"count":5},
+        "photo":"../public/images/us.png"
+    }
+]

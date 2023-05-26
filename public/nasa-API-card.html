@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <title> NASA API-CARD-EXAMPLE</title>
+    <script type="text/javascript">
+        function bodyload(){
+            fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY&quot")
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                for(var photo of data.photos){
+                   var div =document.createElement("div");
+                   div.style.width = "300px";
+                   div.className = "card p-2";
+                   div.innerHTML = `
+                   <img src=${photo.img_src} width="200px" height="100px" class="card-img-top">
+                   <div class="card-header">
+                    <h2>${photo.id}</h2>
+                    </div>
+                    <div class="card-body">
+                    <dl>
+                        <dt>camera name</dt>
+                        <dd>${photo.camera.name}</dd>
+                        <dt>rover name</dt>
+                        <dd>${photo.rover.name}</dd>                        
+                    </dl>    
+                    </div>
+
+                   `;
+                   document.querySelector("main").appendChild(div);
+
+                   var option = document.createElement("option");
+                   option.text = photo.camera.full_name;
+                   option.value = photo.camera.name
+                   document.getElementById("lstcamera").appendChild(option);
+                }
+            })
+        }
+        function photochanged(){
+            document.querySelector("main").innerHTML = "";
+            var selection = document.getElementById("lstcamera").value;
+            fetch("https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY&quot")
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(data){
+                var result = data.photos.filter(function(photo){
+                    return photo.camera.nane==selection;
+                })
+                for(var photo of data.photos){
+                   var div =document.createElement("div");
+                   div.style.width = "300px";
+                   div.className = "card p-2";
+                   div.innerHTML = `
+                   <img src=${photo.img_src} width="200px" height="100px" class="card-img-top">
+                   <div class="card-header">
+                    <h2>${photo.id}</h2>
+                    </div>
+                    <div class="card-body">
+                    <dl>
+                        <dt>camera name</dt>
+                        <dd>${photo.camera.name}</dd>
+                        <dt>rover name</dt>
+                        <dd>${photo.rover.name}</dd>                        
+                    </dl>    
+                    </div>
+
+                   `;
+                   document.querySelector("main").appendChild(div);}
+
+
+            })
+        }
+    </script>
+</head>
+<body class="container-fluid" onload="bodyload()">
+    <section class="row">
+        <nav class="col-3">
+            <h2>select camera name</h2>
+            <select class="form-select" id="lstcamera" onchange="photochanged()">
+            </select>
+        </nav>
+        <main class="d-flex flex-wrap col-9">
+
+        </main>
+    </section>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

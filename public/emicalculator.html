@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <title>example of jquery</title>
+    <style>
+
+    </style>
+    <script type="text/javascript">
+      function changeamount(){
+       document.getElementById("txtamount").value = document.getElementById("rangeamount").value;
+      
+      }
+      function changeyear(){
+        document.getElementById("txtyear").value = document.getElementById("rangeyear").value;
+      }
+      function changeinterest(){
+        document.getElementById("txtinterest").value = document.getElementById("rangeinterest").value;
+      }
+      function emicalculate(){
+        var p = parseInt(document.getElementById("txtamount").value);
+        var r = parseFloat(document.getElementById("txtinterest").value)/12/100;
+        var n = parseInt(document.getElementById("txtyear").value)*12;
+         var emi = p*r*Math.pow(1 + r,n)/Math.pow(1 + r,n)-1;
+
+         document.getElementById("result").innerHTML = "Monthly Installment for your amount " + p + " for " + n + "months is " + "<b> &#8377;" + Math.round(emi) + "</b>";
+      }
+
+      
+    </script>
+</head>
+<body class="container-fluid">
+    <div>
+      <marquee class="bg-success"><h1>EMI CALCULATOR</h1></marquee>
+      <div class="row m-4">
+        <div class="col">
+          amount &#8377;<input type="text" class="form-control" placeholder="enter amount you need" id="txtamount">
+        </div>
+        <div class="col">
+         year <input type="number" id="txtyear" min="1" max="4" placeholder="enter year" class="form-control">
+        </div>
+        <div class="col">
+          interest<input type="number" id="txtinterest" class="form-control" >
+          
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col">
+         &#8377;10000 <input type="range" class="form-range w-50" min="10000" max="100000" onchange="changeamount()" id="rangeamount">&#8377;100000
+        </div>
+        <div class="col">
+          <input type="range" class="form-range" min="1" max="4" id="rangeyear" onchange="changeyear()">
+        </div>
+        <div class="col">
+          <input type="range" id="rangeinterest" onchange="changeinterest()" class="form-range"step="0.1" min="10.00" max="20" value="10.00">
+        </div>
+      </div>
+      <div class="mt-4 text-center">
+        <button class="btn btn-danger" onclick="emicalculate()" id="calculate" >calculate</button>
+        <p id="result"></p>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
